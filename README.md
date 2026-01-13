@@ -8,7 +8,17 @@ A Next.js e-commerce application with Solana wallet integration, supporting both
 - 💳 **Dual Payment Methods**: 
   - Direct Solana wallet payments (on-chain transactions)
   - x402 HTTP-based payments for agentic commerce
-- 🔍 **AI-Powered Product Discovery**: Integration with OpenRouter AI and Google Custom Search
+- 🔍 **Unified Search & Discovery**: Multi-provider search layer
+  - **SERP API** ⭐ **MOST COMPLETE**: Comprehensive search with inline shopping, autocomplete, images, news, videos, knowledge graph, related questions, and people also ask
+  - **Firecrawl**: Web scraping, crawling, mapping, and content extraction with Scrape, Extract, Crawl, and Map operations
+  - **Exa AI**: Neural search with embeddings-based results
+  - **Grok (XAI)**: Live search with real-time results
+  - **Tavily**: Advanced search with research, extraction, and crawling capabilities
+  - **Inline Images**: Product images displayed in search results
+  - **Shopping Results**: Product listings with prices, ratings, and reviews
+  - **Review Extraction**: Automatic product review aggregation
+  - **Autocomplete**: AI-powered search suggestions via SERP
+  - **Redis Caching**: Upstash Redis for fast, cached search results
 - 🛒 **Shopping Cart & Checkout**: Complete e-commerce flow
 - ⚡ **Next.js 14**: Built with App Router and TypeScript
 
@@ -36,6 +46,28 @@ NEXT_PUBLIC_RPC_URL=https://api.devnet.solana.com
 # Merchant Wallet Address (for receiving payments)
 NEXT_PUBLIC_WALLET_ADDRESS=your_merchant_wallet_address_here
 
+# Exa API Key (Required for Exa search)
+NEXT_PUBLIC_EXA_API_KEY=your_exa_api_key_here
+
+# SERP API Key (Optional, for traditional search and shopping)
+NEXT_PUBLIC_SERP_API_KEY=your_serp_api_key_here
+
+# XAI API Key (Optional, for Grok live search)
+NEXT_PUBLIC_XAI_API_KEY=your_xai_api_key_here
+
+# SERP API Key (Recommended - Most complete search provider)
+NEXT_PUBLIC_SERP_API_KEY=your_serp_api_key_here
+
+# Tavily API Key (Optional, for advanced search and research)
+NEXT_PUBLIC_TAVILY_API_KEY=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
+
+# Firecrawl API Key (Optional, for web scraping and crawling)
+NEXT_PUBLIC_FIRECRAWL_API_KEY=fc-9f8fa1f901294937ab570243b7317d70
+
+# Upstash Redis (Required for caching)
+UPSTASH_REDIS_URL=https://top-elephant-38278.upstash.io
+UPSTASH_REDIS_TOKEN=AZWGAAIncDJjYjRlOTZhYzQyMGM0MmRmYWY3NzYwNzlkNGNhNTIwY3AyMzgyNzg
+
 # OpenRouter API Key (optional, for AI product discovery)
 NEXT_PUBLIC_OPENROUTER_API_KEY=your_openrouter_key_here
 
@@ -43,6 +75,8 @@ NEXT_PUBLIC_OPENROUTER_API_KEY=your_openrouter_key_here
 NEXT_PUBLIC_GOOGLE_API_KEY=your_google_api_key_here
 NEXT_PUBLIC_GOOGLE_SEARCH_ENGINE_ID=your_search_engine_id_here
 ```
+
+See [SEARCH_SETUP.md](./SEARCH_SETUP.md) for detailed search configuration.
 
 3. Run the development server:
 
@@ -69,11 +103,13 @@ npm run dev
    - **Pay with Solana Wallet**: Direct on-chain transaction
    - **Pay with x402**: HTTP-based payment protocol
 
-### Product Discovery
+### Unified Search & Discovery
 
 1. Enter a search query on the home page
-2. Click "Discover" to search for products
-3. Results will appear below (requires API keys for full functionality)
+2. Configure search options (images, shopping, providers)
+3. Click "Search" to query across Exa, SERP, and Grok
+4. Browse results in tabs: All, Products, Images, Reviews
+5. View rich result cards with images, prices, ratings, and highlights
 
 ## Project Structure
 
