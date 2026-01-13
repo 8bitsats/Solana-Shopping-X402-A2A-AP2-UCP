@@ -1,21 +1,161 @@
-UCP is a proposed open-source, Solana-optimized framework inspired by UCP's agentic commerce goals. It standardizes e-commerce actions (discovery, cart, identity, checkout) while leveraging Solana's speed for real-time agent interactions and x402 for seamless crypto payments.
-Key Benefits (adapted & extended):
+# Solana Shopping App
 
-For Businesses/Merchants: Retain control as Merchant of Record. Process orders on Solana backends with inventory, delivery, and programmable logic (e.g., smart contract discounts/refunds).
-For AI Agents/Platforms: Dynamic discovery of merchant capabilities via /.well-known/sucp manifests. Use x402 for instant, verifiable payments without accounts or high fees.
-For Developers: Build with Next.js + x402-next templates, Solana RPCs, and extensions for NFTs, DeFi integrations, or verticals like digital goods.
-For Consumers: Frictionless shopping in AI chats/modes — discover → cart → pay with wallet/USDC → instant settlement.
-For Payments: x402 + Solana enables cryptographic proof of consent, real-time stablecoin rails (USDC), and extensibility (e.g., escrows, programmable refunds).
+A Next.js e-commerce application with Solana wallet integration, supporting both direct on-chain payments and x402 HTTP-based payments.
 
-Why x402 on Solana?
-It turns HTTP into a payment rail: Server responds 402 → Agent/user pays via wallet → On-chain verification → Access granted. Perfect for agentic flows where speed and cost matter.
-2.0 How It Works (Quick Example Flow)
+## Features
 
-Agent discovers merchant via /.well-known/sucp (JSON manifest listing capabilities like checkout, supported payments including x402 on Solana).
-Product Discovery & Cart — Agent adds items (supports NFTs/digital/physical).
-Checkout — Invoke capability; merchant offers x402 as handler.
-Payment — Server returns 402 Payment Required with requirements (e.g., pay 0.01 USDC on Solana-devnet/mainnet).
-Agent executes — Pays via wallet/Coinbase Pay, includes X-PAYMENT header with tx signature.
-Verification & Settlement — On-chain via Solana (facilitator verifies) → Session granted → Order processed.
+- 🔗 **Solana Wallet Integration**: Connect Phantom, Solflare, and other Solana wallets
+- 💳 **Dual Payment Methods**: 
+  - Direct Solana wallet payments (on-chain transactions)
+  - x402 HTTP-based payments for agentic commerce
+- 🔍 **AI-Powered Product Discovery**: Integration with OpenRouter AI and Google Custom Search
+- 🛒 **Shopping Cart & Checkout**: Complete e-commerce flow
+- ⚡ **Next.js 14**: Built with App Router and TypeScript
 
-Use templates like x402-next on Solana for quick starts — configure protected routes with prices, integrate with Next.js middleware.
+## Prerequisites
+
+- Node.js 18+ and npm
+- A Solana wallet (Phantom, Solflare, etc.) for testing
+- (Optional) OpenRouter API key for AI product discovery
+- (Optional) Google Custom Search API key for product search
+
+## Installation
+
+1. Clone the repository and install dependencies:
+
+```bash
+npm install
+```
+
+2. Create a `.env.local` file in the root directory:
+
+```env
+# Solana RPC Endpoint
+NEXT_PUBLIC_RPC_URL=https://api.devnet.solana.com
+
+# Merchant Wallet Address (for receiving payments)
+NEXT_PUBLIC_WALLET_ADDRESS=your_merchant_wallet_address_here
+
+# OpenRouter API Key (optional, for AI product discovery)
+NEXT_PUBLIC_OPENROUTER_API_KEY=your_openrouter_key_here
+
+# Google Custom Search API (optional, for product search)
+NEXT_PUBLIC_GOOGLE_API_KEY=your_google_api_key_here
+NEXT_PUBLIC_GOOGLE_SEARCH_ENGINE_ID=your_search_engine_id_here
+```
+
+3. Run the development server:
+
+```bash
+npm run dev
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Usage
+
+### Connecting a Wallet
+
+1. Click the "Select Wallet" button in the header
+2. Choose your wallet (Phantom, Solflare, etc.)
+3. Approve the connection in your wallet extension
+
+### Making a Payment
+
+1. Navigate to the Checkout page
+2. Ensure your wallet is connected
+3. Enter the payment amount in SOL
+4. Choose your payment method:
+   - **Pay with Solana Wallet**: Direct on-chain transaction
+   - **Pay with x402**: HTTP-based payment protocol
+
+### Product Discovery
+
+1. Enter a search query on the home page
+2. Click "Discover" to search for products
+3. Results will appear below (requires API keys for full functionality)
+
+## Project Structure
+
+```
+solana-shopping/
+├── app/
+│   ├── api/
+│   │   └── checkout/
+│   │       └── route.ts          # Checkout API endpoint
+│   ├── checkout/
+│   │   └── page.tsx              # Checkout page
+│   ├── globals.css               # Global styles
+│   ├── layout.tsx                # Root layout with providers
+│   └── page.tsx                  # Home page
+├── components/
+│   └── WalletButton.tsx          # Wallet connection button
+├── lib/
+│   └── providers.tsx             # Solana wallet providers
+└── package.json
+```
+
+## Configuration
+
+### RPC Endpoint
+
+By default, the app uses Solana devnet. To switch to mainnet:
+
+```env
+NEXT_PUBLIC_RPC_URL=https://api.mainnet-beta.solana.com
+```
+
+### Merchant Wallet
+
+Set your merchant wallet address in `.env.local`:
+
+```env
+NEXT_PUBLIC_WALLET_ADDRESS=YourMerchantWalletAddressHere
+```
+
+## Development
+
+### Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+### Linting
+
+```bash
+npm run lint
+```
+
+## Security Notes
+
+- Always use environment variables for sensitive keys
+- Verify transactions server-side in production
+- Use HTTPS in production
+- Implement proper error handling and user feedback
+- Consider rate limiting for API endpoints
+
+## Production Considerations
+
+- Switch to mainnet RPC endpoint
+- Implement proper error handling
+- Add transaction confirmation UI
+- Implement order management
+- Add proper logging and monitoring
+- Set up CI/CD pipeline
+- Add comprehensive testing
+
+## Token Payments
+
+For SPL token payments (e.g., USDC), you'll need to use `@solana/spl-token`:
+
+```bash
+npm install @solana/spl-token
+```
+
+Then modify the checkout flow to use token transfers instead of SOL transfers.
+
+## License
+
+MIT
